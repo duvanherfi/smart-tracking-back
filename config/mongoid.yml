@@ -1,0 +1,145 @@
+production:
+  # Configure available database clients. (required)
+  clients:
+    # Defines the default client. (required)
+    default:
+      # Mongoid can connect to a URI accepted by the driver:
+      uri: Rails.application.credentials.mongo_url
+      options:
+
+        # Change the default read preference. Valid options for mode are: :secondary,
+        # :secondary_preferred, :primary, :primary_preferred, :nearest
+        # (default: primary)
+        # read:
+        #   mode: :secondary_preferred
+        #   tag_sets:
+        #     - use: web
+
+
+        # Compressors to use for wire protocol compression. (default is to not use compression)
+        # "zstd" requires zstd-ruby gem. "snappy" requires snappy gem.
+        # Refer to: https://www.mongodb.com/docs/ruby-driver/current/reference/create-client/#compression
+        compressors: ["zstd"]
+
+        # Whether to connect to the servers via ssl. (default: false)
+        # ssl: true
+
+  # Configure Mongoid-specific options. (optional)
+  options:
+
+
+    # Mark belongs_to associations as required by default, so that saving a
+    # model with a missing belongs_to association will trigger a validation
+    # error.
+    belongs_to_required_by_default: false
+
+
+    # The log level.
+    #
+    # It must be set prior to referencing clients or Mongo.logger,
+    # changes to this option are not be propagated to any clients and
+    # loggers that already exist.
+    #
+    # Additionally, only when the clients are configured via the
+    # configuration file is the log level given by this option honored.
+    log_level: :info
+
+    # Raise an error when performing a #find and the document is not found.
+    raise_not_found_error: false
+
+    # Return stored times as UTC.
+    # use_utc: false
+
+  # Configure Driver-specific options. (optional)
+  driver_options:
+    # When this flag is off, an aggregation done on a view will be executed over
+    # the documents included in that view, instead of all documents in the
+    # collection. When this flag is on, the view fiter is ignored.
+    # broken_view_aggregate: true
+
+    # When this flag is set to false, the view options will be correctly
+    # propagated to readable methods.
+    # broken_view_options: true
+
+    # When this flag is set to true, the update and replace methods will
+    # validate the paramters and raise an error if they are invalid.
+    # validate_update_replace: false
+
+development:
+  # Configure available database clients. (required)
+  clients:
+    # Defines the default client. (required)
+    default:
+      # Mongoid can connect to a URI accepted by the driver:
+      uri: Rails.application.credentials.mongo_url
+      options:
+
+        # Change the default read preference. Valid options for mode are: :secondary,
+        # :secondary_preferred, :primary, :primary_preferred, :nearest
+        # (default: primary)
+        # read:
+        #   mode: :secondary_preferred
+        #   tag_sets:
+        #     - use: web
+
+
+        # Compressors to use for wire protocol compression. (default is to not use compression)
+        # "zstd" requires zstd-ruby gem. "snappy" requires snappy gem.
+        # Refer to: https://www.mongodb.com/docs/ruby-driver/current/reference/create-client/#compression
+        compressors: ["zstd"]
+
+        # Whether to connect to the servers via ssl. (default: false)
+        # ssl: true
+
+  # Configure Mongoid-specific options. (optional)
+  options:
+
+
+    # Mark belongs_to associations as required by default, so that saving a
+    # model with a missing belongs_to association will trigger a validation
+    # error.
+    belongs_to_required_by_default: false
+
+
+    # The log level.
+    #
+    # It must be set prior to referencing clients or Mongo.logger,
+    # changes to this option are not be propagated to any clients and
+    # loggers that already exist.
+    #
+    # Additionally, only when the clients are configured via the
+    # configuration file is the log level given by this option honored.
+    log_level: :info
+
+    # Raise an error when performing a #find and the document is not found.
+    raise_not_found_error: false
+
+    # Return stored times as UTC.
+    # use_utc: false
+
+  # Configure Driver-specific options. (optional)
+  driver_options:
+    # When this flag is off, an aggregation done on a view will be executed over
+    # the documents included in that view, instead of all documents in the
+    # collection. When this flag is on, the view fiter is ignored.
+    # broken_view_aggregate: true
+
+    # When this flag is set to false, the view options will be correctly
+    # propagated to readable methods.
+    # broken_view_options: true
+
+    # When this flag is set to true, the update and replace methods will
+    # validate the paramters and raise an error if they are invalid.
+    # validate_update_replace: false
+
+
+test:
+  clients:
+    default:
+      database: smart_tracking_back_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
