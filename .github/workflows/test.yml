@@ -47,7 +47,7 @@ jobs:
           CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
         run : |
-          bundle exec parallel_test spec/ -n $CI_NODE_TOTAL --only-group $CI_NODE_INDEX --type rspec
+          bundle exec turbo_tests
       - uses: actions/upload-artifact@v4
         with:
           name: rails-coverage
