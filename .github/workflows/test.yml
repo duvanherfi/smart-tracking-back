@@ -58,6 +58,7 @@ jobs:
 
   coverage:
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
