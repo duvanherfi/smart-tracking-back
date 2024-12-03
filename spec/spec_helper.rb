@@ -20,15 +20,14 @@ RSpec.configure do |config|
 
   unless ENV['IGNORE_COVERAGE'] == 'true'
     require 'simplecov'
-    require 'simplecov-lcov'
+    require 'simplecov-cobertura'
 
     SimpleCov.start('rails') do
       command_name "tests#{ENV['TEST_ENV_NUMBER']}"
 
       minimum_coverage 100
       maximum_coverage_drop 1
-      SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true if ENV['TEST_ENV_NUMBER']
-      formatter SimpleCov::Formatter::LcovFormatter if ENV['TEST_ENV_NUMBER']
+      formatter SimpleCov::Formatter::CoberturaFormatter if ENV['TEST_ENV_NUMBER']
     end
   end
 

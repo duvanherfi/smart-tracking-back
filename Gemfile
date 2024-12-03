@@ -37,7 +37,6 @@ group :test do
   gem "database_cleaner-mongoid"
   gem "simplecov"
   gem "simplecov-cobertura"
-  gem "simplecov-lcov"
 end
 
 group :development, :test do

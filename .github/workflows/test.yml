@@ -13,19 +13,12 @@ concurrency:
 env:
   RAILS_ENV: test
   NODE_VERSION: 22
+  COVERAGE_FILE: coverage.xml
+  COVERAGE_RETENTION_DAYS: 3
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        # Set N number of parallel jobs you want to run
-        # Remember to update ci_node_index below to 0..N-1
-        ci_node_total: [1]
-        # set N-1 indexes for parallel jobs
-        # When you run 2 parallel jobs then first job will have index 0, the second job will have index 1 etc
-        ci_node_index: [0]
 
     services:
       mongo:
@@ -55,8 +48,20 @@ jobs:
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
         run : |
           bundle exec parallel_test spec/ -n $CI_NODE_TOTAL --only-group $CI_NODE_INDEX --type rspec
-      - name: Add code coverage comment
-        uses: romeovs/lcov-reporter-action@v0.2.16
+      - uses: actions/upload-artifact@v4
         with:
-          lcov-file: ./coverage/lcov/smart-tracking-back.lcov
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: rails-coverage
+          path: ${{ env.COVERAGE_FILE }}
+          if-no-files-found: error
+          retention-days: ${{ env.COVERAGE_RETENTION_DAYS }}
+          overwrite: true
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ env.COVERAGE_FILE }}
+          fail_ci_if_error: true
