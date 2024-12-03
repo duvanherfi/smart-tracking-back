@@ -58,8 +58,8 @@ jobs:
       - name: "pwd and ls"
         run: |
           pwd
-          ls coverage
-          cat coverage/lcov/smart_tracking_back.lcov
+          ls coverage/lcov
+          cat coverage/lcov/*.lcov
 
       - name: Add code coverage comment
         uses: romeovs/lcov-reporter-action@v0.2.16
