@@ -4,7 +4,7 @@ production:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      uri: Rails.application.credentials.mongo_url
+      uri: <%= Rails.application.credentials.mongo_url %>
       options:
 
         # Change the default read preference. Valid options for mode are: :secondary,
@@ -45,7 +45,7 @@ production:
     log_level: :info
 
     # Raise an error when performing a #find and the document is not found.
-    raise_not_found_error: false
+    raise_not_found_error: true
 
     # Return stored times as UTC.
     # use_utc: false
@@ -71,7 +71,7 @@ development:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      uri: Rails.application.credentials.mongo_url
+      uri: <%= Rails.application.credentials.mongo_url %>
       options:
 
         # Change the default read preference. Valid options for mode are: :secondary,
@@ -112,7 +112,7 @@ development:
     log_level: :info
 
     # Raise an error when performing a #find and the document is not found.
-    raise_not_found_error: false
+    raise_not_found_error: true
 
     # Return stored times as UTC.
     # use_utc: false
@@ -134,12 +134,7 @@ development:
 
 
 test:
+  allow_concurrency: true
   clients:
     default:
-      database: smart_tracking_back_test
-      hosts:
-        - localhost:27017
-      options:
-        read:
-          mode: :primary
-        max_pool_size: 1
+      uri: mongodb://<%= ENV.fetch('MONGO_HOST', 'localhost:27017') %>/smart_tracking<%= ENV['TEST_ENV_NUMBER'] %>

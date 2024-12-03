@@ -36,3 +36,6 @@
 /config/credentials/development.key
 
 /config/credentials/production.key
+.byebug_history
+.idea/
+coverage/

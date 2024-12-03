@@ -1,0 +1,65 @@
+name: Rails Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  RAILS_ENV: test
+  NODE_VERSION: 22
+  COVERAGE_FILE: coverage.xml
+  COVERAGE_RETENTION_DAYS: 3
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        env:
+          MONGO_INITDB_DATABASE: smart_tracking
+        ports:
+          - "27017:27017"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run tests
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+        run : bundle exec turbo_tests
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rails-coverage
+          path: coverage/${{ env.COVERAGE_FILE }}
+          if-no-files-found: error
+          retention-days: ${{ env.COVERAGE_RETENTION_DAYS }}
+          overwrite: true
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: rails-coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ env.COVERAGE_FILE }}
+          fail_ci_if_error: true
