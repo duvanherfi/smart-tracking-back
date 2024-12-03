@@ -1,6 +1,10 @@
 name: Rails Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 concurrency:
   group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
@@ -54,10 +58,11 @@ jobs:
       - name: "pwd and ls"
         run: |
           pwd
-          tree
+          ls coverage
+          cat coverage/lcov/smart_tracking_back.lcov
 
       - name: Add code coverage comment
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
-          lcov-file: ./coverage/lcov/smart_tracking_back.lcov
+          lcov-file: coverage/lcov/smart_tracking_back.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
