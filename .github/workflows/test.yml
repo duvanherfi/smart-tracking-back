@@ -22,6 +22,10 @@ jobs:
     services:
       mongo:
         image: mongo:latest
+        env:
+          MONGO_INITDB_DATABASE: smart_tracking
+        ports:
+          - "27017:27017"
 
     steps:
       - uses: actions/checkout@v4
