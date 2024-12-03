@@ -2,6 +2,10 @@ name: Rails Tests
 
 on: [push, pull_request]
 
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   RAILS_ENV: test
   NODE_VERSION: 22
@@ -47,6 +51,10 @@ jobs:
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
         run : |
           bundle exec parallel_test spec/ -n $CI_NODE_TOTAL --only-group $CI_NODE_INDEX --type rspec
+      - name: "pwd and ls"
+        run: |
+          pwd
+          ls -la
 
       - name: Add code coverage comment
         uses: romeovs/lcov-reporter-action@v0.2.16
