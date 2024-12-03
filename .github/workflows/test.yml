@@ -35,23 +35,16 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Test Prep
-        env:
-          CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-        run: |
-          bundle exec rake parallel:create["1"] parallel:load_schema["1"]
-
       - name: Run tests
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-        run : |
-          bundle exec turbo_tests
+        run : bundle exec turbo_tests
       - uses: actions/upload-artifact@v4
         with:
           name: rails-coverage
-          path: ${{ env.COVERAGE_FILE }}
+          path: ./${{ env.COVERAGE_FILE }}
           if-no-files-found: error
           retention-days: ${{ env.COVERAGE_RETENTION_DAYS }}
           overwrite: true
