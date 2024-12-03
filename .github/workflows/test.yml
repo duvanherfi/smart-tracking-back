@@ -44,7 +44,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: rails-coverage
-          path: ./${{ env.COVERAGE_FILE }}
+          path: coverage/${{ env.COVERAGE_FILE }}
           if-no-files-found: error
           retention-days: ${{ env.COVERAGE_RETENTION_DAYS }}
           overwrite: true
