@@ -1,6 +1,6 @@
 name: Rails Tests
 
-on: push
+on: [push, pull_request]
 
 env:
   RAILS_ENV: test
