@@ -134,8 +134,7 @@ development:
 
 
 test:
+  allow_concurrency: true
   clients:
     default:
-      database: smart_tracking_back_test
-      hosts:
-        - localhost:27017
+      uri: mongodb://<%= ENV.fetch('MONGO_HOST', 'localhost:27017') %>/smart_tracking<%= ENV['TEST_ENV_NUMBER'] %>
