@@ -5,23 +5,22 @@ class Turbo::Android::PathConfigurationsController < ApplicationController
     render json: {
       settings: {
         screenshots_enabled: true,
-        register_with_account: Jumpstart.config.register_with_account?,
         require_authentication: false,
         # Tabs are hidden while we sort this out: https://github.com/hotwired/turbo-android/issues/209
         tabs: [
           {
             title: "Home",
-            path: root_path,
+            path: "/",
             icon: "home"
           },
           {
             title: "What's New",
-            path: announcements_path,
+            path: "/",
             icon: "announcement"
           },
           {
             title: "Notifications",
-            path: notifications_path,
+            path: "/",
             icon: "notifications",
             show_notification_badge: true
           }
@@ -32,15 +31,15 @@ class Turbo::Android::PathConfigurationsController < ApplicationController
           patterns: [".*"],
           properties: {
             context: "default",
-            uri: "turbo://fragment/web",
-            fallback_uri: "turbo://fragment/web",
+            uri: "hotwire://fragment/web",
+            fallback_uri: "hotwire://fragment/web",
             pull_to_refresh_enabled: true
           }
         },
         {
           patterns: ["^$", "^/$"],
           properties: {
-            uri: "turbo://fragment/web/home",
+            uri: "hotwire://fragment/web/home",
             presentation: "replace_root"
           }
         },
@@ -48,28 +47,28 @@ class Turbo::Android::PathConfigurationsController < ApplicationController
           patterns: ["/new$", "/edit$"],
           properties: {
             context: "modal",
-            uri: "turbo://fragment/web/modal/sheet",
+            uri: "hotwire://fragment/web/modal/sheet",
             pull_to_refresh_enabled: false
           }
         },
         {
           patterns: ["/users/sign_in"],
           properties: {
-            uri: "turbo://fragment/users/sign_in",
+            uri: "hotwire://fragment/users/sign_in",
             context: "modal"
           }
         },
         {
           patterns: ["/users/sign_up"],
           properties: {
-            uri: "turbo://fragment/users/sign_up",
+            uri: "hotwire://fragment/users/sign_up",
             context: "modal"
           }
         },
         {
           patterns: ["/account/password/edit"],
           properties: {
-            uri: "turbo://fragment/account/password/edit",
+            uri: "hotwire://fragment/account/password/edit",
             context: "modal"
           }
         }
