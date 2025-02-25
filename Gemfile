@@ -61,3 +61,5 @@ end
 
 gem "mongoid"
 gem "zstd-ruby"
+gem "httparty"
+gem "clockwork"
