@@ -9,7 +9,7 @@ class Api::V1::SessionsController < ApiApplicationController
       session = user.sessions.create
       render json: { user: user.as_json(except: [ :password, :password_digest ]).merge(token: session.token) }, status: :created
     else
-      render json: { error: "Invalid email or password" }, status: :unauthorized
+      render json: { mssg: "Teléfono o contraseña incorrectos." }, status: :unprocessable_entity
     end
   end
 

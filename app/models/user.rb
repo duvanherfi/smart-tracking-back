@@ -13,6 +13,8 @@ class User
   field :is_active, type: Mongoid::Boolean, default: true
 
   has_many :sessions
+  has_many :vehicles
+  has_many :geo_fences
 
   validates :email, presence: true
   validates :name, presence: true

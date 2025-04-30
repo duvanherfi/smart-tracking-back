@@ -52,14 +52,20 @@ group :development, :test do
   gem "rspec-rails", "~> 7.0.0"
   gem "rails-controller-testing"
   gem "turbo_tests"
+  gem "dotenv-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "listen"
 end
 
 gem "mongoid"
 gem "zstd-ruby"
 gem "httparty"
 gem "clockwork"
+gem "slim-rails"
+gem "tailwindcss-rails", "~> 4.0"
+gem "h3"
+gem "bindata"

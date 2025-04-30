@@ -1,4 +1,5 @@
 class Turbo::Ios::PathConfigurationsController < ApplicationController
+  skip_before_action :check_authenticated
   # Defines the tabs and rules for the mobile app views
   # To customize this, you can edit the JSON here
   def show
