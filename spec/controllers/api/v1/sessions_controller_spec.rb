@@ -4,7 +4,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   describe "/login" do
     it "should return 401" do
       post :login, params: { email: "example@gmail.com", password: "password" }
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(422)
     end
 
     it "should login" do

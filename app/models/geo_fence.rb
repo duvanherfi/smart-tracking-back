@@ -11,11 +11,15 @@ class GeoFence
   field :lon, type: Float
   field :is_enabled, type: Mongoid::Boolean, default: true
 
-  belongs_to :user
+  belongs_to :user, required: true
   has_and_belongs_to_many :vehicles, index: true
 
   before_create :centroid_geojson
   before_save :set_label_direction
+
+  validates :name, presence: true
+  validates :lat, presence: true
+  validates :lon, presence: true
 
   def set_centroid_geojson
     return if area_geojson["coordinates"].nil?
@@ -41,7 +45,7 @@ class GeoFence
     ].compact.join(", ")
   end
 
-  def self.polygon_centroid coordinates
+  def self.polygon_centroid(coordinates)
     return nil if coordinates.count.zero?
 
     x_coordinate = 0.0

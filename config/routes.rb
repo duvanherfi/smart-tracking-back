@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
-
   namespace :api do
     namespace :v1 do
       resources :users
@@ -30,14 +28,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "home#index"
-
-  namespace :turbo do
-    namespace :android do
-      resource :path_configuration, only: :show
-    end
-    namespace :ios do
-      resource :path_configuration, only: :show
-    end
-  end
+  # root "home#index"
 end

@@ -11,4 +11,15 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :geo_fence do
+    name { "Default GeoFence" }
+    description { "Default description" }
+    lat { "3.14" }
+    lon { "-7.2" }
+    area_geojson { "{}" }
+    centroid_geojson { "{}" }
+    is_enabled { true }
+    association :user
+  end
 end

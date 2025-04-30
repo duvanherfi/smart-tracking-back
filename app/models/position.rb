@@ -13,5 +13,5 @@ class Position
 
   belongs_to :vehicle, index: true
 
-  index({ vehicle_id: 1, time: -1}, { background: true })
+  index({ vehicle_id: 1, time: -1 }, { background: true })
 end

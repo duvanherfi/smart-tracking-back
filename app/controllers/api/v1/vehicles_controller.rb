@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::VehiclesController < ApiApplicationController
-  before_action :set_vehicle, only: [ :show, :recommended]
+  before_action :set_vehicle, only: [ :show, :recommended ]
 
   def index
     render json: current_user.vehicles.as_json
