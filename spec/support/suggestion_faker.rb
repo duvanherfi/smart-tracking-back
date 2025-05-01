@@ -1,7 +1,6 @@
 require 'sinatra/base'
 
 class SuggestionFaker < Sinatra::Base
-
   get '/api/v1/reverse' do
     json_response(200, 'suggestions_reverse.json')
   end

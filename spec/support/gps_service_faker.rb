@@ -1,7 +1,6 @@
 require 'sinatra/base'
 
 class GpsServiceFaker < Sinatra::Base
-
   post '/api/v1/login' do
     json_response(200, 'gps_service_login.json')
   end

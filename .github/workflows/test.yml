@@ -41,6 +41,10 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+          CI: "true"
+          COVERAGE: "true"
+          RAILS_ENV: "test"
+          RACK_ENV: "test"
         run : bundle exec turbo_tests
       - uses: actions/upload-artifact@v4
         with:

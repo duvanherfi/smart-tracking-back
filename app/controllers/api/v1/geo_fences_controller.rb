@@ -19,7 +19,7 @@ class Api::V1::GeoFencesController < ApiApplicationController
     if @geo_fence.save
       render json: @geo_fence.as_json, status: :created
     else
-      render json: { mssg: "Error creating GeoFence: " + @geo_fence.errors.full_messages.join(',') }, status: :unprocessable_entity
+      render json: { mssg: "Error creating GeoFence: " + @geo_fence.errors.full_messages.join(",") }, status: :unprocessable_entity
     end
   end
 

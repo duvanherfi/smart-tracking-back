@@ -8,7 +8,7 @@ Rails.application.routes.draw do
           delete :logout
         end
       end
-      resources :vehicles do
+      resources :vehicles, only: [ :index, :show ] do
         member do
           get :recommended
         end
