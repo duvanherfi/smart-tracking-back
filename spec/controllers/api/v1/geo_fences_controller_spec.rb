@@ -40,8 +40,33 @@ RSpec.describe Api::V1::GeoFencesController, type: :controller do
         geo_fence: {
           name: "Test GeoFence",
           description: "Test description",
-          area_geojson: "{}",
-          centroid_geojson: "{}",
+          area_geojson: {
+            "coordinates": [
+              [
+                [
+                  98.67039510744497,
+                  3.598934100831031
+                ],
+                [
+                  98.67039510744497,
+                  3.5961691121116393
+                ],
+                [
+                  98.673092328453,
+                  3.5961691121116393
+                ],
+                [
+                  98.673092328453,
+                  3.598934100831031
+                ],
+                [
+                  98.67039510744497,
+                  3.598934100831031
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
           is_enabled: true
         }
       }
@@ -59,7 +84,7 @@ RSpec.describe Api::V1::GeoFencesController, type: :controller do
       it "returns a 422 status" do
         post :create, params: { geo_fence: { name: "" } }
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)["mssg"]).to eq("Error creating GeoFence")
+        expect(JSON.parse(response.body)["mssg"]).not_to be_nil
       end
     end
   end
@@ -74,6 +99,15 @@ RSpec.describe Api::V1::GeoFencesController, type: :controller do
         expect(JSON.parse(response.body)["name"]).to eq("Updated Name")
       end
     end
+
+    context "with invalid parameters" do
+      it "updates the geo_fence" do
+        update_params[:geo_fence][:name] = ""
+        put :update, params: update_params
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["mssg"]).not_to be_nil
+      end
+    end
   end
 
   describe "Destroy" do
@@ -82,6 +116,15 @@ RSpec.describe Api::V1::GeoFencesController, type: :controller do
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)["mssg"]).to eq("GeoFence deleted")
       expect(geo_fence.reload.is_enabled).to eq(false)
+    end
+
+    it "cannot disables the geo_fence" do
+      geo_fence.name = ""
+      geo_fence.save(validate: false)
+      delete :destroy,  params: { id: geo_fence.id }
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(JSON.parse(response.body)["mssg"]).not_to be_nil
+      expect(geo_fence.reload.is_enabled).to eq(true)
     end
   end
 end

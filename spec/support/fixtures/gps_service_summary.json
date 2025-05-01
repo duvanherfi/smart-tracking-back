@@ -1,0 +1,17 @@
+{
+  "statusCode": 200,
+  "message": "Success",
+  "data": {
+    "deviceId": 23376,
+    "deviceName": "ABC123",
+    "distance": 0,
+    "averageSpeed": 0,
+    "maxSpeed": 0,
+    "spentFuel": 0,
+    "startOdometer": 0,
+    "endOdometer": 0,
+    "startTime": "0001-01-01T00:00:00Z",
+    "endTime": "0001-01-01T00:00:00Z",
+    "engineHours": 0
+  }
+}

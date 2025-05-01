@@ -15,11 +15,39 @@ FactoryBot.define do
   factory :geo_fence do
     name { "Default GeoFence" }
     description { "Default description" }
-    lat { "3.14" }
-    lon { "-7.2" }
-    area_geojson { "{}" }
-    centroid_geojson { "{}" }
+    area_geojson { {
+      "coordinates": [
+        [
+          [
+            98.67039510744497,
+            3.598934100831031
+          ],
+          [
+            98.67039510744497,
+            3.5961691121116393
+          ],
+          [
+            98.673092328453,
+            3.5961691121116393
+          ],
+          [
+            98.673092328453,
+            3.598934100831031
+          ],
+          [
+            98.67039510744497,
+            3.598934100831031
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    } }
     is_enabled { true }
+    association :user
+  end
+
+  factory :vehicle do
+    external_id { '1234' }
     association :user
   end
 end

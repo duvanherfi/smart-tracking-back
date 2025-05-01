@@ -82,4 +82,21 @@ class Vehicle
     coordinates = H3.h3_set_to_linked_geo(uniqs)
     JSON.parse(H3.coordinates_to_geo_json coordinates)
   end
+
+  def get_locations
+    service = GpsService.new
+    service.login
+    data = service.get_positions(external_id)["data"]["coordinates"]
+    v = Vehicle.last
+    data.each do |info|
+      Position.where(
+        lat: info["latitude"].to_f,
+        lon: info["longitude"].to_f,
+        course: info["course"].to_i,
+        speed: info["speed"].to_i,
+        time: info["time"],
+        vehicle: v
+      ).first_or_create
+    end
+  end
 end

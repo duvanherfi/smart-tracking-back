@@ -1,6 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
+
+require 'spec_helper'
+require 'webmock/rspec'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -22,7 +24,7 @@ require 'database_cleaner/mongoid'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -59,6 +61,9 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner[:mongoid].start
     DatabaseCleaner[:mongoid].clean
+
+    stub_request(:any, /#{ENV["REVERSE_SERVICE"].gsub("https://", "").gsub("/", "")}/).to_rack(SuggestionFaker)
+    stub_request(:any, /#{ENV["GPS_SERVICE"].gsub("http://", "").gsub("/", "")}/).to_rack(GpsServiceFaker)
   end
 
   config.before(:all) do

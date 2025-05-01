@@ -37,6 +37,8 @@ group :test do
   gem "database_cleaner-mongoid"
   gem "simplecov"
   gem "simplecov-cobertura"
+  gem "webmock"
+  gem "sinatra"
 end
 
 group :development, :test do
@@ -49,10 +51,10 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "byebug"
+  gem "dotenv-rails"
   gem "rspec-rails", "~> 7.0.0"
   gem "rails-controller-testing"
   gem "turbo_tests"
-  gem "dotenv-rails"
 end
 
 group :development do

@@ -18,13 +18,12 @@ class GeoFence
   before_save :set_label_direction
 
   validates :name, presence: true
-  validates :lat, presence: true
-  validates :lon, presence: true
 
   def set_centroid_geojson
-    return if area_geojson["coordinates"].nil?
+    coordinates = area_geojson["coordinates"] || area_geojson[:coordinates]
+    return if coordinates.nil?
 
-    coordinates = area_geojson["coordinates"].flatten.each_slice(2).to_a
+    coordinates = coordinates.flatten.each_slice(2).to_a
     self.lat, self.lon = self.class.polygon_centroid coordinates
     return if self.lat.nil? || self.lon.nil?
     geojson = {
