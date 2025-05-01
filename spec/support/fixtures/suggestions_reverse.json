@@ -1,0 +1,24 @@
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      98.67257599999999,
+      3.596586
+    ]
+  },
+  "properties": {
+    "layer": "address",
+    "source": "pelias",
+    "source_id": "piaddress:address:8e66f1c45c8271f",
+    "country_code": "CO",
+    "admin_area_1": "Colombia",
+    "admin_area_2": "Valle del Cauca",
+    "admin_area_3": "Palmira",
+    "admin_area_4": null,
+    "admin_area_5": null,
+    "label": "Cauca Seco",
+    "formatted_address": "Cauca Seco, VC, Colombia",
+    "postal_code": null
+  }
+}

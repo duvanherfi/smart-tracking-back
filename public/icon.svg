@@ -1,3 +1,36 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #848484;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #6c18db;
+        isolation: isolate;
+      }
+
+      .cls-3 {
+        font-family: Geometric415BT-BlackA, 'Geometr415 Blk BT';
+        font-size: 186.66px;
+        font-weight: 800;
+      }
+    </style>
+  </defs>
+  <circle class="cls-4" cx="540" cy="540" r="540"/>
+  <g>
+    <text class="cls-3" transform="translate(216.98 448.28)"><tspan x="0" y="0">SMART</tspan></text>
+    <text class="cls-3" transform="translate(61.53 722.38)"><tspan x="0" y="0">TRACKING</tspan></text>
+    <rect class="cls-1" x="123.14" y="476.1" width="830.52" height="89.25"/>
+    <rect class="cls-2" x="484.16" y="514.86" width="108.49" height="11.73"/>
+    <rect class="cls-2" x="655.85" y="514.86" width="108.49" height="11.73"/>
+    <rect class="cls-2" x="827.54" y="514.86" width="108.49" height="11.73"/>
+    <rect class="cls-2" x="137.84" y="514.86" width="108.49" height="11.73"/>
+    <rect class="cls-2" x="309.53" y="514.86" width="108.49" height="11.73"/>
+  </g>
 </svg>

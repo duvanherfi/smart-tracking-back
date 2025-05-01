@@ -1,4 +1,5 @@
 # README
+[![codecov](https://codecov.io/gh/duvanherfi/smart-tracking-back/graph/badge.svg?token=IFGE0O53B5)](https://codecov.io/gh/duvanherfi/smart-tracking-back)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

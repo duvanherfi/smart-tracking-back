@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :sessions do
+        collection do
+          post :login
+          delete :logout
+        end
+      end
+      resources :vehicles, only: [ :index, :show ] do
+        member do
+          get :recommended
+        end
+      end
+      resources :geo_fences
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -10,5 +28,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  # root "home#index"
 end

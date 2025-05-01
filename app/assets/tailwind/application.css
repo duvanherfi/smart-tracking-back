@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+html {
+    background-image: url("background.png");
+    background-color: rgba(24, 190, 219, 0.8);
+}
+
+body {
+    background-color: rgba(24, 190, 219, 0.8);
+}
