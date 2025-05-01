@@ -47,6 +47,8 @@ jobs:
           RACK_ENV: "test"
           GPS_SERVICE: ${{ secrets.GPS_SERVICE }}
           REVERSE_SERVICE: ${{ secrets.REVERSE_SERVICE }}
+          GPS_USER: "11111"
+          GPS_PASSWORD: "111111"
         run : bundle exec turbo_tests
       - uses: actions/upload-artifact@v4
         with:
