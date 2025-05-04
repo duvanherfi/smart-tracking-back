@@ -289,6 +289,12 @@ GEM
       ffi (~> 1.0)
     rdoc (6.8.1)
       psych (>= 4.0.0)
+    redis (5.4.0)
+      redis-client (>= 0.22.0)
+    redis-client (0.24.0)
+      connection_pool
+    redis-objects (1.7.0)
+      redis
     regexp_parser (2.9.2)
     reline (0.5.11)
       io-console (~> 0.5)
@@ -454,6 +460,8 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.0)
   rails-controller-testing
+  redis
+  redis-objects
   rspec-rails (~> 7.0.0)
   rubocop-rails-omakase
   simplecov

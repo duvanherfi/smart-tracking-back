@@ -12,6 +12,10 @@ class GpsService
 
   attr_accessor :token, :login_response, :validate_session_response, :devices_response, :summary_response
 
+  def initialize
+    self.token = Redis::Value.new("GPS_TOKEN").value
+  end
+
   def get_positions(device_id = "", start_at = STAR_AT, end_at = END_AT)
     path = "/api/v1/positionsBetweenDates"
     self.class.get(
@@ -41,15 +45,21 @@ class GpsService
   end
 
   def validate_session
+    return if self.token
+
     path = "/api/v1/validateSesion"
-    self.validate_session_response ||= self.class.get(
+    response = self.validate_session_response ||= self.class.get(
       path,
       body: { phone: ENV.fetch("GPS_USER").to_i, password: ENV.fetch("GPS_PASSWORD").to_i }.to_json,
       headers: { 'Authorization': "Bearer #{self.token}" }
     ).parsed_response
+    Redis::Value.new("GPS_TOKEN").value = self.token
+    response
   end
 
   def login
+    return if self.token
+
     path = "/api/v1/login"
     self.login_response ||= self.class.post(
       path, body: { phone: ENV.fetch("GPS_USER").to_i, password: ENV.fetch("GPS_PASSWORD").to_i }.to_json
