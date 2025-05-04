@@ -45,7 +45,7 @@ class GpsService
   end
 
   def validate_session
-    return if self.token
+    return if Redis::Value.new("GPS_TOKEN").value
 
     path = "/api/v1/validateSesion"
     response = self.validate_session_response ||= self.class.get(
