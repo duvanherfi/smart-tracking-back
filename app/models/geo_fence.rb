@@ -24,9 +24,11 @@ class GeoFence
 
   def fix_geojson
     return if area_geojson.blank?
+    return unless area_geojson.first.is_a?(Hash)
 
-    coordinates = area_geojson["coordinates"]
-    coordinates = coordinates.first["[]"] if coordinates.first.is_a?(Hash)
+    coordinates = area_geojson["coordinates"].first
+
+    coordinates = coordinates["[]"] if coordinates.is_a?(Hash)
     area_geojson["type"] = "Polygon"
     area_geojson["coordinates"] = [ coordinates ]
   end
