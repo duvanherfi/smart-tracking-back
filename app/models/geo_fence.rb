@@ -9,17 +9,21 @@ class GeoFence
   field :label_direction, type: String
   field :lat, type: Float
   field :lon, type: Float
+  field :radius, type: Float
   field :is_enabled, type: Mongoid::Boolean, default: true
 
   belongs_to :user, required: true
   has_and_belongs_to_many :vehicles, index: true
 
   before_create :centroid_geojson
+  before_create :set_circle_geojson
   before_save :set_label_direction
 
   validates :name, presence: true
 
   def set_centroid_geojson
+    return if centroid_geojson.present?
+
     coordinates = area_geojson["coordinates"] || area_geojson[:coordinates]
     return if coordinates.nil?
 
@@ -31,6 +35,13 @@ class GeoFence
       coordinates: [ self.lon, self.lat ]
     }
     self.centroid_geojson = geojson
+  end
+
+  def set_circle_geojson
+    return if area_geojson.present? || radius.nil?
+
+    circle = Turf.circle(centroid_geojson, radius, steps: 64)
+    self.area_geojson = circle[:geometry]
   end
 
   def set_label_direction

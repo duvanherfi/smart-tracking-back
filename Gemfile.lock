@@ -410,6 +410,7 @@ GEM
     turbo_tests (2.2.4)
       parallel_tests (>= 3.3.0, < 5)
       rspec (>= 3.10)
+    turf-ruby (1.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
@@ -473,6 +474,7 @@ DEPENDENCIES
   thruster
   turbo-rails
   turbo_tests
+  turf-ruby
   tzinfo-data
   web-console
   webmock
