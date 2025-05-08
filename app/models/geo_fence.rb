@@ -24,7 +24,7 @@ class GeoFence
 
   def fix_geojson
     return if area_geojson.blank?
-    return unless area_geojson.first.is_a?(Hash)
+    return unless area_geojson["coordinates"].first.is_a?(Hash)
 
     coordinates = area_geojson["coordinates"].first
 
