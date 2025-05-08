@@ -16,8 +16,8 @@ class GeoFence
   has_and_belongs_to_many :vehicles, index: true
 
   before_save :fix_geojson
-  before_save :generate_centroid_geojson
   before_save :set_circle_geojson
+  before_save :generate_centroid_geojson
   before_save :search_label_direction
 
   validates :name, presence: true
