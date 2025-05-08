@@ -48,7 +48,7 @@ class Api::V1::GeoFencesController < ApiApplicationController
 
   def geo_fence_params
     params.require(:geo_fence).permit(
-      :name, :description, :area_geojson, :centroid_geojson, :is_enabled, vehicle_ids: []
+      :name, :description, :radius, :is_enabled, vehicle_ids: [],  area_geojson: {}, centroid_geojson: {}
     )
   end
 end
