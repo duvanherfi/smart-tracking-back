@@ -34,19 +34,22 @@ class GeoFence
   end
 
   def generate_centroid_geojson
-    return if centroid_geojson.present?
-
     coordinates = area_geojson["coordinates"] || area_geojson[:coordinates]
     return if coordinates.nil?
 
     coordinates = coordinates.flatten.each_slice(2).to_a
-    self.lat, self.lon = self.class.polygon_centroid coordinates
+    self.lat, self.lon = if self.centroid_geojson&.dig(:coordinates)
+        self.centroid_geojson[:coordinates].reverse
+    else
+       self.class.polygon_centroid coordinates
+    end
     return if self.lat.nil? || self.lon.nil?
+
     geojson = {
       type: "Point",
       coordinates: [ self.lon, self.lat ]
     }
-    self.centroid_geojson = geojson
+    self.centroid_geojson = geojson unless centroid_geojson.present?
   end
 
   def set_circle_geojson
