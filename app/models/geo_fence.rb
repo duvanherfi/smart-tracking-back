@@ -15,13 +15,23 @@ class GeoFence
   belongs_to :user, required: true
   has_and_belongs_to_many :vehicles, index: true
 
-  before_create :centroid_geojson
-  before_create :set_circle_geojson
-  before_save :set_label_direction
+  before_save :fix_geojson
+  before_save :generate_centroid_geojson
+  before_save :set_circle_geojson
+  before_save :search_label_direction
 
   validates :name, presence: true
 
-  def set_centroid_geojson
+  def fix_geojson
+    return if area_geojson.blank?
+
+    coordinates = area_geojson["coordinates"]
+    coordinates = coordinates.first["[]"] if coordinates.first.is_a?(Hash)
+    area_geojson["type"] = "Polygon"
+    area_geojson["coordinates"] = [ coordinates ]
+  end
+
+  def generate_centroid_geojson
     return if centroid_geojson.present?
 
     coordinates = area_geojson["coordinates"] || area_geojson[:coordinates]
@@ -38,13 +48,13 @@ class GeoFence
   end
 
   def set_circle_geojson
-    return if area_geojson.present? || radius.nil?
+    return if centroid_geojson.blank? || area_geojson.present? || radius.nil?
 
     circle = Turf.circle(centroid_geojson, radius, steps: 64)
     self.area_geojson = circle[:geometry]
   end
 
-  def set_label_direction
+  def search_label_direction
     suggestion = SuggestionService.new
     reverse_response = suggestion.reverse(lat:, lon:)
     self.label_direction = [
@@ -62,8 +72,8 @@ class GeoFence
     y_coordinate = 0.0
     z_coordinate = 0.0
     coordinates.each do |point|
-      lat = point[1] * Math::PI / 180
-      lon = point[0] * Math::PI / 180
+      lat = point[1].to_f * Math::PI / 180
+      lon = point[0].to_f * Math::PI / 180
 
       x_coordinate += Math.cos(lat) * Math.cos(lon)
       y_coordinate += Math.cos(lat) * Math.sin(lon)
