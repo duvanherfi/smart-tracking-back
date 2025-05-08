@@ -62,7 +62,7 @@ class GeoFence
       reverse_response.dig("properties", "admin_area_3"),
       reverse_response.dig("properties", "admin_area_2"),
       reverse_response.dig("properties", "admin_area_1")
-    ].compact.join(", ")
+    ].compact_blank.join(", ")
   end
 
   def self.polygon_centroid(coordinates)
