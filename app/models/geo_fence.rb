@@ -1,6 +1,7 @@
 class GeoFence
   include Mongoid::Document
   include Mongoid::Timestamps
+  include SimpleEnum::Mongoid
 
   field :area_geojson, type: Hash, default: {}
   field :centroid_geojson, type: Hash
@@ -12,8 +13,16 @@ class GeoFence
   field :radius, type: Float
   field :is_enabled, type: Mongoid::Boolean, default: true
 
+  as_enum :type,
+          {
+            circle: 0, free: 1, recommended: 2
+          },
+          field: {
+            type: Integer
+          }
+
   belongs_to :user, required: true
-  has_and_belongs_to_many :vehicles, index: true
+  has_and_belongs_to_many :vehicles, index: true, inverse_of: nil
 
   before_save :fix_geojson
   before_save :set_circle_geojson
