@@ -22,6 +22,8 @@ class GeoFence
 
   validates :name, presence: true
 
+  scope :enabled, -> { where(is_enabled: true) }
+
   def fix_geojson
     return if area_geojson.blank?
     return unless area_geojson["coordinates"].first.is_a?(Hash)

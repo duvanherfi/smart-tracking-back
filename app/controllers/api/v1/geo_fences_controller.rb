@@ -3,7 +3,7 @@ class Api::V1::GeoFencesController < ApiApplicationController
 
   # GET /geo_fences
   def index
-    @geo_fences = GeoFence.all
+    @geo_fences = GeoFence.enabled
 
     render json: @geo_fences.as_json
   end
