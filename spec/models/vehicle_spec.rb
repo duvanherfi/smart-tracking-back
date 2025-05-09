@@ -14,6 +14,7 @@ RSpec.describe Vehicle, type: :model do
 
   it "Get locations" do
     vehicle = create(:vehicle)
+    Redis::Value.new("GPS_TOKEN").value = nil
     vehicle.get_locations
 
     expect(vehicle.positions.count).to be > 0

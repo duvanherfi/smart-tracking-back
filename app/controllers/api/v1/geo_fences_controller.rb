@@ -3,7 +3,7 @@ class Api::V1::GeoFencesController < ApiApplicationController
 
   # GET /geo_fences
   def index
-    @geo_fences = GeoFence.all
+    @geo_fences = GeoFence.enabled
 
     render json: @geo_fences.as_json
   end
@@ -13,10 +13,12 @@ class Api::V1::GeoFencesController < ApiApplicationController
   end
 
   def create
-    @geo_fence = GeoFence.new(geo_fence_params)
+    @geo_fence = GeoFence.new
+    @geo_fence.assign_attributes(geo_fence_params)
     @geo_fence.user = current_user
 
-    if @geo_fence.save
+    if @geo_fence.valid?
+      @geo_fence.save
       render json: @geo_fence.as_json, status: :created
     else
       render json: { mssg: "Error creating GeoFence: " + @geo_fence.errors.full_messages.join(",") }, status: :unprocessable_entity
@@ -47,8 +49,10 @@ class Api::V1::GeoFencesController < ApiApplicationController
   end
 
   def geo_fence_params
-    params.require(:geo_fence).permit(
-      :name, :description, :area_geojson, :centroid_geojson, :is_enabled, vehicle_ids: []
-    )
+    params.require(:geo_fence).permit([
+      :name, :description, :radius, :is_enabled, :type_cd, vehicle_ids: [],
+      area_geojson: {},
+      centroid_geojson: {}
+    ])
   end
 end
