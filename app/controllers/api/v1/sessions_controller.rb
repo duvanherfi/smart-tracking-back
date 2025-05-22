@@ -7,7 +7,7 @@ class Api::V1::SessionsController < ApiApplicationController
     user = User.where(phone: params[:phone]).first
     if user&.authenticate(params[:password])
       session = user.sessions.create(session_params)
-      render json: session_json(session:), status: :created
+      render json: session_json(session:, user:), status: :created
     else
       render json: { mssg: "Teléfono o contraseña incorrectos." }, status: :unprocessable_entity
     end
@@ -15,11 +15,7 @@ class Api::V1::SessionsController < ApiApplicationController
 
   def update
     current_session.assign_attributes(session_params)
-    if current_session.save
-      render json: session_json, status: :created
-    else
-      render json: { mssg: "Error al actualizar: " + current_session.errors.full_messages }, status: :unprocessable_entity
-    end
+    render json: session_json, status: :ok
   end
 
   def logout
@@ -27,14 +23,6 @@ class Api::V1::SessionsController < ApiApplicationController
   end
 
   private
-  def session_json(session: self.current_session)
-    session_hash = session.as_json(only: [ :token, :push_token ])
-    {
-      user: session.user.as_json(
-        except: [ :password, :password_digest ]
-      ).merge(session_hash).merge(session_id: session.id)
-    }
-  end
 
   def session_params
     params.require(:session).permit(

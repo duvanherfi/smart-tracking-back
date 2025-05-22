@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApiApplicationController
 
   def update
     if @user.update(user_params)
-      render json: session_json
+      render json: session_json(user: @user)
     else
       render json: { mssg: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -22,6 +22,6 @@ class Api::V1::UsersController < ApiApplicationController
   end
 
   def user_params
-    params.fetch(:user, {}).permit(:name, :email, :phone, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :phone, :password, :password_confirmation)
   end
 end

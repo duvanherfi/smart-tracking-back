@@ -13,10 +13,10 @@ class ApiApplicationController < ActionController::API
     self.current_user = self.current_session.user
   end
 
-  def session_json(session: self.current_session)
+  def session_json(session: self.current_session, user: self.current_user)
     session_hash = session.as_json(only: [ :token, :push_token ])
     {
-      user: session.user.as_json(
+      user: user.as_json(
         except: [ :password, :password_digest ]
       ).merge(session_hash).merge(session_id: session.id)
     }
