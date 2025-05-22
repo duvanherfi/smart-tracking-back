@@ -3,6 +3,7 @@ class Session
   include Mongoid::Timestamps
 
   field :token, type: String
+  field :push_token, type: String
   field :is_enabled, type: Mongoid::Boolean, default: true
 
   belongs_to :user

@@ -75,12 +75,12 @@ class Vehicle
 
   def recommended
     resolutions = [ 7, 6 ]
-    h3_ids = self.positions.where(:created_at.gte => Time.now.beginning_of_year).limit(100).map do |info|
+    h3_ids = self.positions.where(:created_at.gte => Time.now.beginning_of_year).limit(10000).map do |info|
       H3.from_geo_coordinates([ info[:lat].to_f, info[:lon].to_f ], resolutions.sample)
     end
     uniqs = h3_ids.uniq
     coordinates = H3.h3_set_to_linked_geo(uniqs)
-    JSON.parse(H3.coordinates_to_geo_json coordinates)
+    JSON.parse(H3.coordinates_to_geo_json(coordinates))
   end
 
   def get_locations
