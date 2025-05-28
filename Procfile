@@ -1,1 +1,1 @@
-web: bundle exec rails s -p $PORT
+web: ./bin/thrust ./bin/rails s -p $PORT
