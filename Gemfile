@@ -75,3 +75,6 @@ gem "bindata"
 gem "turf-ruby", require: "turf_ruby"
 gem "colorize"
 gem "simple_enum", require: "simple_enum/mongoid"
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

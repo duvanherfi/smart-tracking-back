@@ -47,9 +47,10 @@ module SmartTrackingBack
       address: ENV["MAILGUN_SMTP_SERVER"],
       user_name: ENV["MAILGUN_SMTP_LOGIN"],
       password: ENV["MAILGUN_SMTP_PASSWORD"],
-      domain: "smartracking.xyz",
+      domain: ENV.fetch("MAILGUN_SMTP_DOMAIN", "smartracking.xyz"),
       authentication: :plain
     }
     ActionMailer::Base.delivery_method = :smtp
+    config.generators.template_engine = "slim"
   end
 end
