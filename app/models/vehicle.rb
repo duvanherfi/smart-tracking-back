@@ -15,7 +15,7 @@ class Vehicle
   field :battery_level, type: String
   field :distance, type: String
   field :total_distance, type: String
-  field :hours, type: String
+  field :hours, type: Float
   field :ip, type: String
   field :rssi, type: String
   field :average_speed, type: String
