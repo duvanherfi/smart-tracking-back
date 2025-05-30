@@ -15,6 +15,7 @@ class Vehicle
   field :battery_level, type: String
   field :distance, type: String
   field :total_distance, type: String
+  field :hours, type: String
   field :ip, type: String
   field :rssi, type: String
   field :average_speed, type: String
@@ -57,6 +58,7 @@ class Vehicle
       total_distance: attributes["totalDistance"],
       ip: attributes["ip"],
       motion: attributes["motion"],
+      hours: attributes["hours"],
       ignition: attributes["ignition"],
       charge: attributes["charge"],
       rssi: attributes["rssi"],
