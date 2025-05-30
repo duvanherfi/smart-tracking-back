@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "3.3.6"
+ruby "3.3.8"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -75,6 +75,6 @@ gem "bindata"
 gem "turf-ruby", require: "turf_ruby"
 gem "colorize"
 gem "simple_enum", require: "simple_enum/mongoid"
-
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem "sidekiq", "~> 7.3"
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
