@@ -18,8 +18,8 @@ class Vehicle
   field :hours, type: Float
   field :ip, type: String
   field :rssi, type: String
-  field :average_speed, type: String
-  field :max_speed, type: String
+  field :average_speed, type: Float
+  field :max_speed, type: Float
   field :label_direction, type: String
   field :raw_response, type: Hash
   field :motion, type: Mongoid::Boolean, default: true
