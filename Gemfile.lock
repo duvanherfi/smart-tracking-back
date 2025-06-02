@@ -464,6 +464,7 @@ GEM
       activesupport
       ostruct
     wkhtmltopdf-binary (0.12.6.9)
+    wkhtmltopdf-heroku (3.0.0)
     zeitwerk (2.7.3)
     zstd-ruby (1.5.6.6)
 
@@ -523,6 +524,7 @@ DEPENDENCIES
   webmock
   wicked_pdf
   wkhtmltopdf-binary
+  wkhtmltopdf-heroku
   zstd-ruby
 
 RUBY VERSION

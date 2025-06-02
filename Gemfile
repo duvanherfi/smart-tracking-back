@@ -77,4 +77,6 @@ gem "colorize"
 gem "simple_enum", require: "simple_enum/mongoid"
 gem "sidekiq", "~> 7.3"
 gem "wicked_pdf"
-gem "wkhtmltopdf-binary"
+gem 'wkhtmltopdf-binary', group: [:development, :test]
+
+gem 'wkhtmltopdf-heroku', group: [:production]
