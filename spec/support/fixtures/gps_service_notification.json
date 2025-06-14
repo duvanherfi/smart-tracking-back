@@ -1,0 +1,16 @@
+{
+  "statusCode": 200,
+  "message": "Success",
+  "data": {
+    "NotificationDoor": true,
+    "NotificationPowerOn": true,
+    "NotificationPowerOff": true,
+    "NotificationDeviceOverspeed": true,
+    "NotificationGeofenceEnter": true,
+    "NotificationGeofenceExit": true,
+    "NotificationShock": true,
+    "NotificationPowerCut": true,
+    "NotificationLowbattery": true,
+    "NotificationSos": true
+  }
+}

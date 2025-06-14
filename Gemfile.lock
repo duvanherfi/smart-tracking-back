@@ -155,9 +155,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.13.0)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     json (2.12.2)
     kamal (2.6.1)
       activesupport (>= 7.0)
@@ -231,6 +228,11 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
+    oj (3.16.11)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
+    oj_serializers (2.0.3)
+      oj (>= 3.14.0)
     ostruct (0.6.1)
     parallel (1.27.0)
     parallel_tests (4.10.1)
@@ -495,10 +497,10 @@ DEPENDENCIES
   h3
   httparty
   importmap-rails
-  jbuilder
   kamal
   listen
   mongoid
+  oj_serializers
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
