@@ -10,7 +10,8 @@ class GpsService
 
   headers 'Content-Type': "application/json"
 
-  attr_accessor :token, :login_response, :validate_session_response, :devices_response, :summary_response
+  attr_accessor :token, :login_response, :validate_session_response, :devices_response, :summary_response,
+                :notification_response
 
   def initialize
     self.token = Redis::Value.new("GPS_TOKEN").value
@@ -28,6 +29,14 @@ class GpsService
   def devices
     path = "/api/v1/devices"
     self.devices_response ||= self.class.get(
+      path,
+      headers: { 'Authorization': "Bearer #{self.token}" }
+    )
+  end
+
+  def notifications
+    path = "/api/v1/notifications"
+    self.notification_response ||= self.class.get(
       path,
       headers: { 'Authorization': "Bearer #{self.token}" }
     )

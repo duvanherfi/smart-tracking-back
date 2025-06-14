@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "legal", to: "legal#index", format: "pdf"
 
   namespace :api do
-    namespace :v1 do
+    namespace :v1, defaults: { format: "json" } do
       resources :users
       resources :sessions do
         collection do
@@ -17,6 +17,11 @@ Rails.application.routes.draw do
         end
       end
       resources :geo_fences
+      resources :notifications, only: [ :index, :show ] do
+        member do
+          put :toggle_enabled
+        end
+      end
     end
   end
 

@@ -52,5 +52,8 @@ module SmartTrackingBack
     }
     ActionMailer::Base.delivery_method = :smtp
     config.generators.template_engine = "slim"
+    config.i18n.available_locales = [ :es, :en ]
+    config.i18n.fallbacks = [ :en ]
+    config.i18n.default_locale = :es
   end
 end
