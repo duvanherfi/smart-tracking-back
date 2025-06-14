@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get "legal", to: "legal#index", format: "pdf"
 
   namespace :api do

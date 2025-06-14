@@ -13,7 +13,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-gem 'oj_serializers'
+gem "oj_serializers"
 # Use Redis adapter to run Action Cable in production
 gem "redis"
 gem "redis-objects"
@@ -77,6 +77,6 @@ gem "colorize"
 gem "simple_enum", require: "simple_enum/mongoid"
 gem "sidekiq", "~> 7.3"
 gem "wicked_pdf"
-gem 'wkhtmltopdf-binary', group: [:development, :test]
+gem "wkhtmltopdf-binary", group: [ :development, :test ]
 
-gem 'wkhtmltopdf-heroku', group: [:production]
+gem "wkhtmltopdf-heroku", group: [ :production ]

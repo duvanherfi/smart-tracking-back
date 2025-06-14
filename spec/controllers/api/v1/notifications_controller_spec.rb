@@ -39,7 +39,6 @@ RSpec.describe Api::V1::NotificationsController, type: :controller do
 
   describe "PATCH #toggle_enabled" do
     context "with valid parameters" do
-
       it "toggle enabled notification" do
         request.headers["Authorization"] = "Bearer #{user.sessions.last.token}"
         notification = Notification.create! valid_attributes

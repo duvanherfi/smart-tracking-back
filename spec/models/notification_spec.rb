@@ -11,7 +11,7 @@ RSpec.describe Notification, type: :model do
   let(:invalid_attributes) {
     {
       name: '',
-      is_enabled: true,
+      is_enabled: true
     }
   }
 
