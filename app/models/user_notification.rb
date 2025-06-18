@@ -18,15 +18,12 @@ class UserNotification
   belongs_to :vehicle, inverse_of: :user_notifications, index: true
   belongs_to :geo_fence, inverse_of: :user_notifications, optional: true, index: true
 
+  before_save :search_label_direction
+
   index({ external_id: 1 }, { unique: true })
-  index({ is_enabled: 1, server_time: -1}, { background: true })
+  index({ is_enabled: 1, server_time: -1 }, { background: true })
 
   default_scope -> { where(is_enabled: true).order_by(server_time: -1) }
-
-  def destroy(options = nil)
-    self.is_enabled = false
-    self.save
-  end
 
   def build_from_server(info)
     self.external_id = info["ID"]
@@ -45,6 +42,8 @@ class UserNotification
   end
 
   def search_label_direction
+    return if lat.nil? || lon.nil?
+
     suggestion = SuggestionService.new
     reverse_response = suggestion.reverse(lat:, lon:)
     self.label_direction = [
@@ -53,6 +52,5 @@ class UserNotification
       reverse_response.dig("properties", "admin_area_2"),
       reverse_response.dig("properties", "admin_area_1")
     ].compact_blank.join(", ")
-    save
   end
 end
