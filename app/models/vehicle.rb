@@ -30,6 +30,7 @@ class Vehicle
 
   belongs_to :user, index: true
   has_many :positions
+  has_many :user_notifications, inverse_of: :vehicle
   has_and_belongs_to_many :geo_fences, index: true
 
 

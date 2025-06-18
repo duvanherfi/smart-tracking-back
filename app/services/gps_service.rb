@@ -42,6 +42,15 @@ class GpsService
     )
   end
 
+  def user_notifications(device_id = "", start_at = "", end_at = "")
+    path = "/api/v1/userNotifications"
+    self.notification_response ||= self.class.get(
+      path,
+      query: { deviceId: device_id, from: start_at, to: end_at },
+      headers: { 'Authorization': "Bearer #{self.token}" }
+    )
+  end
+
   def summary(device_id = "", start_at = STAR_AT, end_at = END_AT)
     path = "/api/v1/reports/summary"
     self.summary_response ||= self.class.get(
