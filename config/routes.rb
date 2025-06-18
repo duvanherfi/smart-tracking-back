@@ -21,6 +21,7 @@ Rails.application.routes.draw do
           put :toggle_enabled
         end
       end
+      resources :user_notifications, only: [ :index ]
     end
   end
 

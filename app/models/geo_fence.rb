@@ -23,6 +23,7 @@ class GeoFence
 
   belongs_to :user, required: true
   has_and_belongs_to_many :vehicles, index: true, inverse_of: nil
+  has_many :user_notifications, inverse_of: :geo_fence
 
   before_save :fix_geojson
   before_save :set_circle_geojson

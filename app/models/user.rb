@@ -16,6 +16,7 @@ class User
   has_many :vehicles
   has_many :geo_fences
   has_many :notifications, inverse_of: :user
+  has_many :user_notifications, inverse_of: :user
 
   validates :email, presence: true
   validates :name, presence: true
