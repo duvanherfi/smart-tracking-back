@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1, defaults: { format: "json" } do
-      resources :users
+      resources :users do
+        collection do
+          post :recovery_password
+        end
+      end
       resources :sessions do
         collection do
           post :login
