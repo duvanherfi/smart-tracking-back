@@ -1,0 +1,15 @@
+es:
+  hello: "Hello world"
+  models:
+    notification:
+      names:
+        NotificationDoor: "Notificación de puerta"
+        NotificationPowerOn: "Notificación de encendido"
+        NotificationPowerOff: "Notificación de apagado"
+        NotificationDeviceOverspeed: "Notificación de exceso de velocidad del dispositivo"
+        NotificationGeofenceEnter: "Notificación de entrada a geocerca"
+        NotificationGeofenceExit: "Notificación de salida de geocerca"
+        NotificationShock: "Notificación de choque"
+        NotificationPowerCut: "Notificación de corte de energía"
+        NotificationLowbattery: "Notificación de batería baja"
+        NotificationSos: "Notificación de SOS"

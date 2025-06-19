@@ -25,6 +25,17 @@ class GpsServiceFaker < Sinatra::Base
     json_response(200, 'gps_service_positions.json')
   end
 
+  get '/api/v1/notifications' do
+    json_response(200, 'gps_service_notification.json')
+  end
+
+  get '/api/v1/userNotifications' do
+    json_response(200, 'gps_service_user_notifications.json')
+  end
+
+  get '/api/v1/reports/trips' do
+    json_response(200, 'gps_service_trips.json')
+  end
 
   private
 

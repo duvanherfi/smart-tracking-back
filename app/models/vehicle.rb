@@ -15,10 +15,11 @@ class Vehicle
   field :battery_level, type: String
   field :distance, type: String
   field :total_distance, type: String
+  field :hours, type: Float
   field :ip, type: String
   field :rssi, type: String
-  field :average_speed, type: String
-  field :max_speed, type: String
+  field :average_speed, type: Float
+  field :max_speed, type: Float
   field :label_direction, type: String
   field :raw_response, type: Hash
   field :motion, type: Mongoid::Boolean, default: true
@@ -29,6 +30,7 @@ class Vehicle
 
   belongs_to :user, index: true
   has_many :positions
+  has_many :user_notifications, inverse_of: :vehicle
   has_and_belongs_to_many :geo_fences, index: true
 
 
@@ -57,6 +59,7 @@ class Vehicle
       total_distance: attributes["totalDistance"],
       ip: attributes["ip"],
       motion: attributes["motion"],
+      hours: attributes["hours"],
       ignition: attributes["ignition"],
       charge: attributes["charge"],
       rssi: attributes["rssi"],

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    name { "John" }
-    email { "jhon@gmail.com" }
-    phone { "1234567890" }
+    sequence(:name) { |n| "User #{n}" }
+    sequence(:email) { |n| "email#{n}@gmail.com" }
+    sequence(:phone) { |n| "#{n}" * 10 }
     password { "password" }
 
     factory :user_with_sessions do
@@ -48,6 +48,12 @@ FactoryBot.define do
 
   factory :vehicle do
     external_id { '1234' }
+    association :user
+  end
+
+  factory :notification do
+    sequence(:name) { |n| "Notification #{n}" }
+    is_enabled { true }
     association :user
   end
 end

@@ -47,9 +47,13 @@ module SmartTrackingBack
       address: ENV["MAILGUN_SMTP_SERVER"],
       user_name: ENV["MAILGUN_SMTP_LOGIN"],
       password: ENV["MAILGUN_SMTP_PASSWORD"],
-      domain: "smart-tracking-bcc894279cf1.herokuapp.com/.heroku.com",
+      domain: ENV.fetch("MAILGUN_SMTP_DOMAIN", "smartracking.xyz"),
       authentication: :plain
     }
     ActionMailer::Base.delivery_method = :smtp
+    config.generators.template_engine = "slim"
+    config.i18n.available_locales = [ :es, :en ]
+    config.i18n.fallbacks = [ :en ]
+    config.i18n.default_locale = :es
   end
 end

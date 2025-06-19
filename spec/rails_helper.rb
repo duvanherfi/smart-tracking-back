@@ -61,6 +61,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner[:mongoid].start
     DatabaseCleaner[:mongoid].clean
+    Rails.cache.clear
 
     stub_request(:any, /#{ENV["REVERSE_SERVICE"].gsub("https://", "").gsub("/", "")}/).to_rack(SuggestionFaker)
     stub_request(:any, /#{ENV["GPS_SERVICE"].gsub("http://", "").gsub("/", "")}/).to_rack(GpsServiceFaker)
@@ -68,9 +69,11 @@ RSpec.configure do |config|
 
   config.before(:all) do
     DatabaseCleaner[:mongoid].start
+    Rails.cache.clear
   end
 
   config.after(:all) do
     DatabaseCleaner[:mongoid].clean
+    Rails.cache.clear
   end
 end
