@@ -11,7 +11,7 @@ class GpsService
   headers 'Content-Type': "application/json"
 
   attr_accessor :token, :login_response, :validate_session_response, :devices_response, :summary_response,
-                :notification_response
+                :notification_response, :user_notification_response, :reports_response,
 
   def initialize
     self.token = Redis::Value.new("GPS_TOKEN").value
@@ -44,7 +44,7 @@ class GpsService
 
   def user_notifications(device_id = "", start_at = "", end_at = "")
     path = "/api/v1/userNotifications"
-    self.notification_response ||= self.class.get(
+    self.user_notification_response ||= self.class.get(
       path,
       query: { deviceId: device_id, from: start_at, to: end_at },
       headers: { 'Authorization': "Bearer #{self.token}" }
@@ -87,5 +87,15 @@ class GpsService
     validate_session
 
     login_response
+  end
+
+  def reports_trips(device_id = "", start_at = STAR_AT, end_at = END_AT)
+    path = "/api/v1/reports/trips"
+    self.reports_response ||= self.class.get(
+      path,
+      query: { deviceID: device_id, from: start_at, to: end_at },
+      headers: { 'Authorization': "Bearer #{self.token}" },
+      timeout: 5.minutes.to_i
+    )
   end
 end
