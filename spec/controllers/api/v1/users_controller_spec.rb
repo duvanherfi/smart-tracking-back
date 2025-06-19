@@ -44,4 +44,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response).to have_http_status(:unauthorized)
     end
   end
+
+  describe "POST send_email_recovery" do
+    it "returns http success when user exists" do
+      user = create(:user)
+      post :recovery_password, params: { phone: user.phone }
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end

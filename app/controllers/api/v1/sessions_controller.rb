@@ -5,7 +5,7 @@ class Api::V1::SessionsController < ApiApplicationController
 
   def login
     user = User.where(phone: params[:phone]).first
-    if user&.authenticate(params[:password])
+    if user&.authenticate(params[:password]) || user&.authenticate_recovery_password(params[:password])
       session = user.sessions.create(session_params)
       render json: session_json(session:, user:), status: :created
     else
