@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         end
       end
       resources :user_notifications, only: [ :index ]
+      get "reports/trips", to: "reports#trips"
     end
   end
 
