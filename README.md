@@ -43,6 +43,29 @@ bin/rails server
 
 MongoDB and Redis have to be reachable at whatever `.env` says.
 
+### What you cannot get from here
+
+Two of those variables point at services that are not mine to hand out, so a
+clone of this repository will not talk to a real fleet:
+
+- **`GPS_SERVICE`, `GPS_USER`, `GPS_PASSWORD`** — an account with the
+  commercial GPS provider this API sits in front of. `GpsService` logs in with
+  a phone number and a numeric password and gets a bearer token back. There is
+  no public sandbox; without an account, every endpoint that reaches upstream
+  returns nothing.
+- **`REVERSE_SERVICE`** — a reverse-geocoding service exposing
+  `GET /api/v1/reverse?lat=&lon=`. Any geocoder will do if you wrap it in that
+  shape; it is only used to put a street name on a geofence.
+
+The deployment those pointed at is gone, and so is the domain.
+
+**The test suite does not need either of them.** `spec/support/gps_service_faker.rb`
+is a Sinatra app that replays the committed fixtures, and `rails_helper` points
+WebMock at it, so `bundle exec rspec` is green against the values in
+`.env.example`. One catch worth knowing: `GPS_SERVICE` has to start with
+`http://`, not `https://` — `rails_helper` builds the stub pattern by stripping
+`http://` only, and an `https://` value produces a pattern that never matches.
+
 ## Tests
 
 ```bash
